@@ -1,6 +1,6 @@
 {
-  "_client-Cr-Qb_4e.js": {
-    "file": "assets/client-Cr-Qb_4e.js",
+  "_client-CPWgJ_yl.js": {
+    "file": "assets/client-CPWgJ_yl.js",
     "name": "client",
     "isDynamicEntry": true,
     "imports": [
@@ -8,12 +8,12 @@
     ]
   },
   "index.html": {
-    "file": "assets/app-BJT2hs1-.js",
+    "file": "assets/app-CP4hk2Xw.js",
     "name": "app",
     "src": "index.html",
     "isEntry": true,
     "dynamicImports": [
-      "_client-Cr-Qb_4e.js"
+      "_client-CPWgJ_yl.js"
     ],
     "css": [
       "assets/app-BnMRwdV3.css"
