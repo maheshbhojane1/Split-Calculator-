@@ -1,0 +1,22 @@
+{
+  "_client-Cr-Qb_4e.js": {
+    "file": "assets/client-Cr-Qb_4e.js",
+    "name": "client",
+    "isDynamicEntry": true,
+    "imports": [
+      "index.html"
+    ]
+  },
+  "index.html": {
+    "file": "assets/app-BJT2hs1-.js",
+    "name": "app",
+    "src": "index.html",
+    "isEntry": true,
+    "dynamicImports": [
+      "_client-Cr-Qb_4e.js"
+    ],
+    "css": [
+      "assets/app-BnMRwdV3.css"
+    ]
+  }
+}

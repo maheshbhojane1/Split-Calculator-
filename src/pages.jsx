@@ -4,7 +4,7 @@ import { Link, NavLink, Outlet } from 'react-router-dom'
 import { toC, fmt, allocate, settle, lim, clamp } from './lib.js'
 
 const SITE = 'https://example.com' // TODO: your domain
-const BRAND = 'SplitEasy'          // TODO: your brand
+const BRAND = 'Splitkit'          // TODO: your brand
 
 const Cur = createContext('USD')
 const useCur = () => useContext(Cur)
@@ -38,18 +38,25 @@ function Seo({ name, title, desc, path, faq }) {
 }
 
 /* ---------- Shared UI ---------- */
+const Ico = ({ children }) => <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{children}</svg>
+const SOCIAL = [ // TODO: replace with your real profile URLs
+  ['GitHub', 'https://github.com/maheshbhojane1', <Ico><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" /></Ico>],
+  ['LinkedIn', 'https://linkedin.com/in/maheshbhojane', <Ico><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /></Ico>],
+  ['Instagram', 'https://www.instagram.com/mahesh__bhojane', <Ico><rect x="2" y="2" width="20" height="20" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></Ico>]
+]
+
 function Layout() {
   const [cur, setCur] = useState('USD'), [open, setOpen] = useState(false)
   const close = () => setOpen(false)
   return (
     <Cur.Provider value={cur}>
       <div className="wrap"><header className="top">
-        <Link className="logo" to="/"><span className="mark">%</span><span><b>{BRAND}</b></span></Link>
+        <Link className="logo" to="/"><span className="mark">%</span><span><b>{BRAND}</b><small></small></span></Link>
         <button className="burger" aria-label="Menu" aria-expanded={open} aria-controls="menu" onClick={() => setOpen(!open)}><span /><span /><span /></button>
         <nav id="menu" className={'menu' + (open ? ' open' : '')} aria-label="Main">
-          <NavLink to="/" end onClick={close}>Split bill</NavLink>
-          <NavLink to="/split-rent-calculator/" onClick={close}>Split rent</NavLink>
-          <NavLink to="/split-expenses-calculator/" onClick={close}>Split expenses</NavLink>
+          <NavLink to="/" end onClick={close}>Split Bill</NavLink>
+          <NavLink to="/split-rent-calculator/" onClick={close}>Split Rent</NavLink>
+          <NavLink to="/split-expenses-calculator/" onClick={close}>Split Expenses</NavLink>
           <span className="pill hide">● No sign-up needed</span>
           <select aria-label="Currency" value={cur} onChange={e => setCur(e.target.value)} className="cur">
             {['USD', 'INR', 'GBP', 'EUR', 'CAD', 'AUD'].map(c => <option key={c}>{c}</option>)}
@@ -57,9 +64,26 @@ function Layout() {
         </nav>
       </header></div>
       <main><Outlet /></main>
-      <footer><div className="wrap">
-        <p><Link to="/">Split bill calculator</Link><Link to="/split-rent-calculator/">Split rent calculator</Link><Link to="/split-expenses-calculator/">Split expenses calculator</Link></p>
-        <p>Free, no signup. Everything is calculated in your browser, and nothing you enter is stored or sent. Results are estimates, not financial advice. © {BRAND}</p>
+      <footer className="ft"><div className="wrap">
+        <div className="ft-grid">
+          <div>
+            <Link className="ft-brand" to="/"><span className="mark">%</span>{BRAND}</Link>
+            <p>Free split calculators for dinners, roommates and road trips. No signup, and nothing you enter is stored or sent.</p>
+            <div className="social">
+              {SOCIAL.map(([name, url, icon]) => <a key={name} href={url} target="_blank" rel="noopener noreferrer me" aria-label={name}>{icon}</a>)}
+            </div>
+          </div>
+          <div className="ft-links">
+            <h3>Calculators</h3>
+            <Link to="/">Split Bill Calculator</Link>
+            <Link to="/split-rent-calculator/">Split Rent Calculator</Link>
+            <Link to="/split-expenses-calculator/">Split Expenses Calculator</Link>
+          </div>
+        </div>
+        <div className="ft-bottom">
+          <span>© {new Date().getFullYear()} {BRAND}. All rights reserved.</span>
+          <span>Results are estimates, not financial advice.</span>
+        </div>
       </div></footer>
     </Cur.Provider>
   )
