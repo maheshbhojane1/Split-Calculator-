@@ -3,8 +3,8 @@ import { Head } from 'vite-react-ssg'
 import { Link, NavLink, Outlet } from 'react-router-dom'
 import { toC, fmt, allocate, settle, lim, clamp } from './lib.js'
 
-const SITE = 'https://example.com' // TODO: your domain
-const BRAND = 'Splitkit'          // TODO: your brand
+const SITE = 'https://countsplit.com' // TODO: your domain
+const BRAND = 'CountSplit'          // TODO: your brand
 
 const Cur = createContext('USD')
 const useCur = () => useContext(Cur)
