@@ -2,8 +2,12 @@ import { useState, createContext, useContext } from 'react'
 import { Head } from 'vite-react-ssg'
 import { Link, NavLink, Outlet } from 'react-router-dom'
 import { toC, fmt, allocate, settle, lim, clamp } from './lib.js'
+import { Privacy, Terms, About, Contact } from './legal.jsx'
 
-const SITE = 'https://countsplit.com' // TODO: your domain
+const CONTACT_EMAIL = 'countsplit@gmail.com' // put your real contact email here
+
+
+const SITE = 'https://countsplit.com/' // TODO: your domain
 const BRAND = 'CountSplit'          // TODO: your brand
 
 const Cur = createContext('USD')
@@ -78,6 +82,13 @@ function Layout() {
             <Link to="/">Split Bill Calculator</Link>
             <Link to="/split-rent-calculator/">Split Rent Calculator</Link>
             <Link to="/split-expenses-calculator/">Split Expenses Calculator</Link>
+          </div>
+          <div className="ft-links">
+            <h3>Legal & Contact</h3>
+            <Link to="/about/">About</Link>
+            <Link to="/contact/">Contact</Link>
+            <Link to="/privacy-policy/">Privacy Policy</Link>
+            <Link to="/terms/">Terms of Use</Link>
           </div>
         </div>
         <div className="ft-bottom">
@@ -349,6 +360,10 @@ export const routes = [{
   children: [
     { index: true, element: <Bill /> },
     { path: 'split-rent-calculator', element: <Rent /> },
-    { path: 'split-expenses-calculator', element: <Expenses /> }
+    { path: 'split-expenses-calculator', element: <Expenses /> },
+    { path: 'about', element: <About site={SITE} brand={BRAND} email={CONTACT_EMAIL} /> },
+    { path: 'contact', element: <Contact site={SITE} brand={BRAND} email={CONTACT_EMAIL} /> },
+    { path: 'privacy-policy', element: <Privacy site={SITE} brand={BRAND} email={CONTACT_EMAIL} /> },
+    { path: 'terms', element: <Terms site={SITE} brand={BRAND} email={CONTACT_EMAIL} /> }
   ]
 }]
