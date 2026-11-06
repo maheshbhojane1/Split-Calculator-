@@ -376,6 +376,14 @@ const BILL_FAQ = [
     "Is my data saved?",
     "Your calculator inputs are never stored or uploaded. Calculations run in your browser.",
   ],
+  [
+    "Can I use this as a split money calculator?",
+    "Yes. Enter any total, not only a restaurant bill, set the tip to 0%, and choose how many people share it. The calculator divides the money evenly to the cent.",
+  ],
+  [
+    "Is this a split cost calculator for shared expenses?",
+    "For a single shared cost, yes. For several costs paid by different people, use the split expenses calculator, which shows who owes whom.",
+  ],
 ];
 
 const RENT_FAQ = [
@@ -578,7 +586,7 @@ function Bill() {
         path: "/",
         faq: BILL_FAQ,
         title: "Split Bill Calculator – Split Tax & Tip Evenly | " + BRAND,
-        desc: "Free split bill calculator. Add tax and tip, split by any number of people, and get each share to the cent. No signup.",
+        desc: "Free split bill calculator. Split a bill, cost, or money between any number of people, with tax and tip. Exact to the cent. No signup.",
       }}
     >
       <section className="sec first">
@@ -607,6 +615,19 @@ function Bill() {
           A meal is $86.00 before tax. With 8% tax ($6.88) and an 18% tip on the
           pre-tax amount ($15.48), the total is $108.36. Split three ways, each
           person pays $36.12.
+        </p>
+      </section>
+      <section className="sec">
+        <h2>Split a bill, a cost, or any amount of money</h2>
+        <p>
+          This split bill calculator also works as a split cost calculator and a
+          split money calculator. Enter any total, set tax and tip to 0 if they
+          don’t apply, and choose how many people share it. For several costs
+          paid by different people, use the{" "}
+          <Link to="/split-expenses-calculator/">
+            split expenses calculator
+          </Link>
+          .
         </p>
       </section>
       <Faq items={BILL_FAQ} />
