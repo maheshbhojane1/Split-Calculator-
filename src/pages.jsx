@@ -1,6 +1,6 @@
-import { useState, createContext, useContext } from "react";
+import { useState, useEffect, createContext, useContext } from "react";
 import { Head } from "vite-react-ssg";
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import { toC, fmt, allocate, settle, lim, clamp } from "./lib.js";
 import { Privacy, Terms, About, Contact } from "./legal.jsx";
 import Consent from "./Consent.jsx";
@@ -8,7 +8,7 @@ import Consent from "./Consent.jsx";
 const GA_ID = "G-DERBPEP89J"; // your Measurement ID
 const CONTACT_EMAIL = "countsplit@gmail.com"; // put your real contact email here
 
-const SITE = "https://countsplit.com/"; // TODO: your domain
+const SITE = "https://countsplit.com"; // TODO: your domain
 const BRAND = "CountSplit"; // TODO: your brand
 
 const Cur = createContext("USD");
@@ -102,12 +102,21 @@ const SOCIAL = [
   ],
 ];
 
+function ScrollTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
+
 function Layout() {
   const [cur, setCur] = useState("USD"),
     [open, setOpen] = useState(false);
   const close = () => setOpen(false);
   return (
     <Cur.Provider value={cur}>
+      <ScrollTop />
       <div className="wrap">
         <header className="top">
           <Link className="logo" to="/">
@@ -221,8 +230,12 @@ function Layout() {
   );
 }
 
+// const Num = (p) => (
+//   <input type="number" inputMode="decimal" min="0" step="any" {...p} />
+// );
+
 const Num = (p) => (
-  <input type="number" inputMode="decimal" min="0" step="any" {...p} />
+  <input type="text" inputMode="decimal" autoComplete="off" {...p} />
 );
 
 function Faq({ items }) {
@@ -361,7 +374,7 @@ const BILL_FAQ = [
   ],
   [
     "Is my data saved?",
-    "No. Calculations run in your browser and nothing is stored or uploaded.",
+    "Your calculator inputs are never stored or uploaded. Calculations run in your browser.",
   ],
 ];
 
@@ -752,19 +765,42 @@ function Expenses() {
   const cur = useCur();
   const [names, setNames] = useState("Alex, Sam, Priya");
   const [rows, setRows] = useState([{ d: "", a: "", p: "" }]);
-  const people = [
+  // const people = [
+  //   ...new Set(
+  //     names
+  //       .split(",")
+  //       .map((x) => x.trim())
+  //       .filter(Boolean),
+  //   ),
+  // ];
+  const parseNames = (s) => [
     ...new Set(
-      names
+      s
         .split(",")
         .map((x) => x.trim())
         .filter(Boolean),
     ),
   ];
+  const people = parseNames(names);
+  const changeNames = (v) => {
+    const next = parseNames(v);
+    if (next.length === people.length) {
+      setRows(
+        rows.map((r) => {
+          const i = people.indexOf(r.p);
+          return i >= 0 ? { ...r, p: next[i] } : r;
+        }),
+      );
+    }
+    setNames(v);
+  };
   const bal = Object.fromEntries(people.map((p) => [p, 0]));
+  let spent = 0;
   rows.forEach((r) => {
     const c = toC(r.a),
       payer = people.includes(r.p) ? r.p : people[0];
     if (!c || !payer) return;
+    spent += c;
     allocate(
       c,
       people.map(() => 1),
@@ -795,7 +831,7 @@ function Expenses() {
         <input
           id="ppl"
           value={names}
-          onChange={(e) => setNames(e.target.value)}
+          onChange={(e) => changeNames(e.target.value)}
         />
         <label>Expenses</label>
         {rows.map((r, i) => (
@@ -848,7 +884,13 @@ function Expenses() {
       </div>
       <div className="card receipt" aria-live="polite">
         <p className="mut">To settle up</p>
-        {moves.length === 0 && <p>Add an expense to see who owes whom.</p>}
+        {moves.length === 0 && (
+          <p>
+            {spent
+              ? "Everyone is even. No payments needed."
+              : "Add an expense to see who owes whom."}
+          </p>
+        )}
         {moves.map((m, i) => (
           <div className="line" key={i}>
             <span>

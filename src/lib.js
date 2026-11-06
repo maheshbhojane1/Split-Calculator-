@@ -1,11 +1,22 @@
 export const MAX = 100000000 // keeps cents below JS's safe-integer limit
-export const clamp = (v, max = MAX) => Math.min(Math.max(parseFloat(v) || 0, 0), max)
-export const lim = (v, max = MAX) => {
-  if (v === '') return v
-  const s = String(v).replace(/^0+(?=\d)/, '').slice(0, 12) // no leading-zero strings, capped length
-  const n = parseFloat(s)
-  return n > max ? String(max) : n < 0 ? '0' : s
+
+// Keep only digits and one decimal point, so pasted values like "1,200" or "₹1,00,000" work.
+const clean = v => {
+  let s = String(v).replace(/[^0-9.]/g, '')
+  const dot = s.indexOf('.')
+  if (dot !== -1) s = s.slice(0, dot + 1) + s.slice(dot + 1).replace(/\./g, '')
+  return s
 }
+
+export const clamp = (v, max = MAX) => Math.min(Math.max(parseFloat(clean(v)) || 0, 0), max)
+
+export const lim = (v, max = MAX) => {
+  let s = clean(v)
+  if (s === '') return ''
+  s = s.replace(/^0+(?=\d)/, '').slice(0, 12) // no leading-zero strings, capped length
+  return parseFloat(s) > max ? String(max) : s
+}
+
 export const toC = v => Math.round(clamp(v) * 100)
 export const fmt = (c, cur = 'USD') =>
   (c / 100).toLocaleString(undefined, { style: 'currency', currency: cur })
