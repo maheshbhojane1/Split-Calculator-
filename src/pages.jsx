@@ -3,6 +3,7 @@ import { Head } from "vite-react-ssg";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import { toC, fmt, allocate, settle, lim, clamp } from "./lib.js";
 import { Privacy, Terms, About, Contact } from "./legal.jsx";
+import { RentGuide } from "./guides.jsx";
 import Consent from "./Consent.jsx";
 
 const GA_ID = "G-DERBPEP89J"; // your Measurement ID
@@ -123,7 +124,6 @@ function Layout() {
             <span className="mark">%</span>
             <span>
               <b>{BRAND}</b>
-              <small></small>
             </span>
           </Link>
           <button
@@ -201,6 +201,9 @@ function Layout() {
               <Link to="/split-expenses-calculator/">
                 Split Expenses Calculator
               </Link>
+              <Link to="/how-to-split-rent-fairly/">
+                How to Split Rent Fairly
+              </Link>
             </div>
             <div className="ft-links">
               <h3>Legal & Contact</h3>
@@ -229,10 +232,6 @@ function Layout() {
     </Cur.Provider>
   );
 }
-
-// const Num = (p) => (
-//   <input type="number" inputMode="decimal" min="0" step="any" {...p} />
-// );
 
 const Num = (p) => (
   <input type="text" inputMode="decimal" autoComplete="off" {...p} />
@@ -617,6 +616,7 @@ function Bill() {
           person pays $36.12.
         </p>
       </section>
+
       <section className="sec">
         <h2>Split a bill, a cost, or any amount of money</h2>
         <p>
@@ -772,7 +772,12 @@ function Rent() {
         <p>
           Rooms of 200, 150, and 100 sq ft make 450 sq ft in total. The shares
           are $1,333.33, $1,000.00, and $666.67. For internet and power, use the{" "}
-          <Link to="/">split bill calculator</Link>.
+          <Link to="/">split bill calculator</Link>. Not sure which method fits
+          your home? Read{" "}
+          <Link to="/how-to-split-rent-fairly/">
+            how to split rent fairly between roommates
+          </Link>
+          .
         </p>
       </section>
       <Faq items={RENT_FAQ} />
@@ -786,14 +791,7 @@ function Expenses() {
   const cur = useCur();
   const [names, setNames] = useState("Alex, Sam, Priya");
   const [rows, setRows] = useState([{ d: "", a: "", p: "" }]);
-  // const people = [
-  //   ...new Set(
-  //     names
-  //       .split(",")
-  //       .map((x) => x.trim())
-  //       .filter(Boolean),
-  //   ),
-  // ];
+ 
   const parseNames = (s) => [
     ...new Set(
       s
@@ -975,6 +973,10 @@ export const routes = [
       {
         path: "terms",
         element: <Terms site={SITE} brand={BRAND} email={CONTACT_EMAIL} />,
+      },
+      {
+        path: "how-to-split-rent-fairly",
+        element: <RentGuide site={SITE} brand={BRAND} />,
       },
     ],
   },
