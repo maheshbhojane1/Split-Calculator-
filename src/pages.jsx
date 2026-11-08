@@ -4,6 +4,7 @@ import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import { toC, fmt, allocate, settle, lim, clamp } from "./lib.js";
 import { Privacy, Terms, About, Contact } from "./legal.jsx";
 import { RentGuide } from "./guides.jsx";
+import { BillGuide } from "./billguide.jsx";
 import Consent from "./Consent.jsx";
 
 const GA_ID = "G-DERBPEP89J"; // your Measurement ID
@@ -203,6 +204,9 @@ function Layout() {
               </Link>
               <Link to="/how-to-split-rent-fairly/">
                 How to Split Rent Fairly
+              </Link>
+              <Link to="/how-to-split-a-restaurant-bill/">
+                How to Split a Restaurant Bill
               </Link>
             </div>
             <div className="ft-links">
@@ -605,7 +609,12 @@ function Bill() {
           <Link to="/split-expenses-calculator/">
             split expenses calculator
           </Link>{" "}
-          when different people paid for different things.
+          when different people paid for different things. Dining with a group?
+          Read{" "}
+          <Link to="/how-to-split-a-restaurant-bill/">
+            how to split a restaurant bill with tax and tip
+          </Link>
+          .
         </p>
       </section>
       <section className="sec">
@@ -791,7 +800,7 @@ function Expenses() {
   const cur = useCur();
   const [names, setNames] = useState("Alex, Sam, Priya");
   const [rows, setRows] = useState([{ d: "", a: "", p: "" }]);
- 
+
   const parseNames = (s) => [
     ...new Set(
       s
@@ -977,6 +986,10 @@ export const routes = [
       {
         path: "how-to-split-rent-fairly",
         element: <RentGuide site={SITE} brand={BRAND} />,
+      },
+      {
+        path: "how-to-split-a-restaurant-bill",
+        element: <BillGuide site={SITE} brand={BRAND} />,
       },
     ],
   },
