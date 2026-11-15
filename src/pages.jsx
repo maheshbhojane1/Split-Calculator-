@@ -21,19 +21,10 @@ const sym = (c) =>
     .replace(/[\d.,\s]/g, "");
 
 /* ---------- SEO ---------- */
+
 function Seo({ name, title, desc, path, faq }) {
   const url = SITE + path;
-  const ld = [
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      name,
-      url,
-      applicationCategory: "FinanceApplication",
-      operatingSystem: "Any",
-      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-    },
-  ];
+  const ld = [];
   if (faq)
     ld.push({
       "@context": "https://schema.org",
@@ -629,13 +620,13 @@ function Bill() {
       <section className="sec">
         <h2>Split a bill, a cost, or any amount of money</h2>
         <p>
-  This split bill calculator also works as a bill splitter, a split cost
-  calculator, and a split money calculator. Use it to divide a bill between
-  friends: enter any total, set tax and tip to 0 if they don’t apply, and
-  choose how many people share it. For several costs paid by different
-  people, use the{" "}
-  <Link to="/split-expenses-calculator/">split expenses calculator</Link>.
-</p>
+          This split bill calculator also works as a bill splitter, a split cost
+          calculator, and a split money calculator. Use it to divide a bill between
+          friends: enter any total, set tax and tip to 0 if they don’t apply, and
+          choose how many people share it. For several costs paid by different
+          people, use the{" "}
+          <Link to="/split-expenses-calculator/">split expenses calculator</Link>.
+        </p>
       </section>
       <Faq items={BILL_FAQ} />
       <Related here="/" />
