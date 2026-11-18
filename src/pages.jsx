@@ -620,11 +620,12 @@ function Bill() {
       <section className="sec">
         <h2>Split a bill, a cost, or any amount of money</h2>
         <p>
-          This split bill calculator also works as a bill splitter, a split cost
-          calculator, and a split money calculator. Use it to divide a bill between
-          friends: enter any total, set tax and tip to 0 if they don’t apply, and
-          choose how many people share it. For several costs paid by different
-          people, use the{" "}
+          This split bill calculator is also a bill splitter and a splitting
+          calculator for any shared amount. Use it as a split cost calculator or a
+          split money calculator: enter the total, set tax and tip to 0 if they
+          don’t apply, and choose how many people share it. In the US it also works
+          as a split check calculator for restaurant checks. For several costs paid
+          by different people, use the{" "}
           <Link to="/split-expenses-calculator/">split expenses calculator</Link>.
         </p>
       </section>
@@ -775,7 +776,13 @@ function Rent() {
           <Link to="/how-to-split-rent-fairly/">
             how to split rent fairly between roommates
           </Link>
-          .
+          <p>
+            This rent split calculator works for roommates, couples, and families.
+            Add each person’s room size to split rent by space, or enter incomes to
+            use it as a rent split calculator based on income, so each person pays the
+            same share of what they earn. It is a free online rent calculator for
+            roommates, with no signup.
+          </p>
         </p>
       </section>
       <Faq items={RENT_FAQ} />
@@ -935,12 +942,14 @@ function Expenses() {
       <section className="sec first">
         <h2>How settling up works</h2>
         <p>
-          Each expense is divided equally. The calculator nets everyone’s
-          payments and shares, then finds the fewest transfers that clear all
-          balances. Splitting just one bill with tip? Use the{" "}
-          <Link to="/">split bill calculator</Link>. Sharing a lease? Try the{" "}
-          <Link to="/split-rent-calculator/">split rent calculator</Link>.
-        </p>
+  Each expense is divided equally. The calculator nets everyone’s
+  payments and shares, then finds the fewest transfers that clear all
+  balances. Splitting just one bill with tip? Use the{" "}
+  <Link to="/">split bill calculator</Link>. Sharing a lease? Try the{" "}
+  <Link to="/split-rent-calculator/">split rent calculator</Link>. It also
+  works as an expense splitter for trips, households, and shared costs: add
+  each cost, and the calculator shows who pays whom.
+</p>
       </section>
       <Faq items={EXP_FAQ} />
       <Related here="/split-expenses-calculator/" />
