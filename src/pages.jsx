@@ -776,13 +776,14 @@ function Rent() {
           <Link to="/how-to-split-rent-fairly/">
             how to split rent fairly between roommates
           </Link>
-          <p>
-            This rent split calculator works for roommates, couples, and families.
-            Add each person’s room size to split rent by space, or enter incomes to
-            use it as a rent split calculator based on income, so each person pays the
-            same share of what they earn. It is a free online rent calculator for
-            roommates, with no signup.
-          </p>
+          .
+        </p>
+        <p>
+          This rent split calculator works for roommates, couples, and families.
+          Add each person’s room size to split rent by space, or enter incomes to
+          use it as a rent split calculator based on income, so each person pays
+          the same share of what they earn. It is a free online rent calculator
+          for roommates, with no signup.
         </p>
       </section>
       <Faq items={RENT_FAQ} />
@@ -942,14 +943,14 @@ function Expenses() {
       <section className="sec first">
         <h2>How settling up works</h2>
         <p>
-  Each expense is divided equally. The calculator nets everyone’s
-  payments and shares, then finds the fewest transfers that clear all
-  balances. Splitting just one bill with tip? Use the{" "}
-  <Link to="/">split bill calculator</Link>. Sharing a lease? Try the{" "}
-  <Link to="/split-rent-calculator/">split rent calculator</Link>. It also
-  works as an expense splitter for trips, households, and shared costs: add
-  each cost, and the calculator shows who pays whom.
-</p>
+          Each expense is divided equally. The calculator nets everyone’s
+          payments and shares, then finds the fewest transfers that clear all
+          balances. Splitting just one bill with tip? Use the{" "}
+          <Link to="/">split bill calculator</Link>. Sharing a lease? Try the{" "}
+          <Link to="/split-rent-calculator/">split rent calculator</Link>. It also
+          works as an expense splitter for trips, households, and shared costs: add
+          each cost, and the calculator shows who pays whom.
+        </p>
       </section>
       <Faq items={EXP_FAQ} />
       <Related here="/split-expenses-calculator/" />
